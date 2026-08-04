@@ -1,0 +1,66 @@
+name: Generar instaladores
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    name: Windows EXE
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+      - run: npm run build:win
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Evidence-UAS-6.8-Windows
+          path: dist/*.exe
+          if-no-files-found: error
+          retention-days: 30
+
+  mac-arm64:
+    name: macOS Apple Silicon DMG
+    runs-on: macos-14
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+      - run: npm run build:mac-arm64
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Evidence-UAS-6.8-macOS-Apple-Silicon
+          path: dist/*.dmg
+          if-no-files-found: error
+          retention-days: 30
+
+  mac-x64:
+    name: macOS Intel DMG
+    runs-on: macos-14
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+      - run: npm run build:mac-x64
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Evidence-UAS-6.8-macOS-Intel
+          path: dist/*.dmg
+          if-no-files-found: error
+          retention-days: 30
