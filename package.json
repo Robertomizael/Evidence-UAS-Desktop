@@ -21,7 +21,7 @@
     "productName": "Evidence UAS",
     "artifactName": "Evidence-UAS-6.8-${os}-${arch}.${ext}",
     "directories": { "output": "dist" },
-    "files": ["main.js", "app/**/*", "package.json"],
+    "files": ["main.js", "index.html", "package.json"],
     "asar": true,
     "mac": {
       "category": "public.app-category.education",
