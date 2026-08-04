@@ -1,0 +1,42 @@
+{
+  "name": "evidence-uas-desktop",
+  "version": "6.8.0",
+  "description": "Evidence UAS 6.8 - Buscador Inteligente de Literatura Científica",
+  "main": "main.js",
+  "author": "Dr. Roberto Joel Tirado Reyes",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "build:win": "electron-builder --win nsis --x64",
+    "build:mac-arm64": "electron-builder --mac dmg --arm64",
+    "build:mac-x64": "electron-builder --mac dmg --x64"
+  },
+  "devDependencies": {
+    "electron": "37.2.4",
+    "electron-builder": "26.0.12"
+  },
+  "build": {
+    "appId": "mx.uas.evidence",
+    "productName": "Evidence UAS",
+    "artifactName": "Evidence-UAS-6.8-${os}-${arch}.${ext}",
+    "directories": { "output": "dist" },
+    "files": ["main.js", "app/**/*", "package.json"],
+    "asar": true,
+    "mac": {
+      "category": "public.app-category.education",
+      "target": ["dmg"],
+      "identity": null
+    },
+    "win": {
+      "target": [{ "target": "nsis", "arch": ["x64"] }]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Evidence UAS"
+    }
+  }
+}
